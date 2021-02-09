@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fd0/khepri/storage"
+	"restic/storage"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
