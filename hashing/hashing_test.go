@@ -7,7 +7,7 @@ import (
 	"encoding/hex"
 	"hash"
 
-	"github.com/fd0/khepri/hashing"
+	"restic/hashing"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )

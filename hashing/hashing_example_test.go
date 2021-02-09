@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/fd0/khepri/hashing"
+	"restic/hashing"
 )
 
 func ExampleReader() {

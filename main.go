@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/fd0/khepri/storage"
+	"restic/storage"
 )
 
 func hash(filename string) (storage.ID, error) {
@@ -30,14 +30,12 @@ func archive_dir(repo storage.Repository, path string) {
 	// 		archive_dir(repo, item)
 	// 	} else {
 
-	// 	}
-
 	// 	return nil
 	// })
 }
 
 func main() {
-	repo, err := storage.NewDir("repo")
+	repo, err := storage.NewDirRepository("repo")
 	if err != nil {
 		log.Fatalf("error: %v", err)
 	}

@@ -12,7 +12,7 @@ import (
 	"os"
 	"path"
 
-	"github.com/fd0/khepri/hashing"
+	"restic/hashing"
 )
 
 const (
