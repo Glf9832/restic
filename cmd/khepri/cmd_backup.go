@@ -6,14 +6,13 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"khepri"
 	"log"
 	"os"
 	"path/filepath"
-
-	"restic/storage"
 )
 
-func hash(filename string) (storage.ID, error) {
+func hash(filename string) (khepri.ID, error) {
 	h := sha256.New()
 	f, err := os.Open(filename)
 	if err != nil {
@@ -24,7 +23,7 @@ func hash(filename string) (storage.ID, error) {
 	return h.Sum([]byte{}), nil
 }
 
-func archive_dir(repo *storage.DirRepository, path string) (storage.ID, error) {
+func archive_dir(repo *khepri.DirRepository, path string) (khepri.ID, error) {
 	log.Printf("archiving dir %q", path)
 	dir, err := os.Open(path)
 	if err != nil {
@@ -43,11 +42,11 @@ func archive_dir(repo *storage.DirRepository, path string) (storage.ID, error) {
 		return nil, nil
 	}
 
-	t := storage.NewTree()
+	t := khepri.NewTree()
 	for _, e := range entries {
-		node := storage.NodeFromFileInfo(e)
+		node := khepri.NodeFromFileInfo(e)
 
-		var id storage.ID
+		var id khepri.ID
 		var err error
 
 		if e.IsDir() {
@@ -81,7 +80,7 @@ func archive_dir(repo *storage.DirRepository, path string) (storage.ID, error) {
 	return id, nil
 }
 
-func commandBackup(repo *storage.DirRepository, args []string) error {
+func commandBackup(repo *khepri.DirRepository, args []string) error {
 	if len(args) != 1 {
 		return errors.New("usage: backup dir")
 	}

@@ -1,4 +1,4 @@
-package storage
+package khepri
 
 import (
 	"crypto/sha256"
@@ -10,8 +10,6 @@ import (
 	"net/url"
 	"os"
 	"path"
-
-	"restic/hashing"
 )
 
 const (
@@ -89,7 +87,7 @@ func (r *DirRepository) Put(reader io.Reader) (ID, error) {
 		return nil, err
 	}
 
-	rd := hashing.NewReader(reader, r.hash)
+	rd := NewHashingReader(reader, r.hash)
 	_, err = io.Copy(file, rd)
 	if err != nil {
 		return nil, err
@@ -130,16 +128,11 @@ func (r *DirRepository) PutRaw(buf []byte) (ID, error) {
 		return nil, err
 	}
 
-	wr := hashing.NewWriter(file, r.hash)
-	n, err := wr.Write(buf)
+	wr := NewHashingWriter(file, r.hash)
+	_, err = wr.Write(buf)
 	if err != nil {
 		return nil, err
 	}
-
-	if n != len(buf) {
-		return nil, errors.New("not all bytes written")
-	}
-
 	err = file.Close()
 	if err != nil {
 		return nil, err

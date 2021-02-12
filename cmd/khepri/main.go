@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
+	"khepri"
 	"os"
 	"sort"
 	"strings"
 
-	"restic/storage"
 	"github.com/jessevdk/go-flags"
 )
 
@@ -22,7 +22,7 @@ func errmsg(code int, format string, data ...interface{}) {
 	os.Exit(code)
 }
 
-type commandFunc func(*storage.DirRepository, []string) error
+type commandFunc func(*khepri.DirRepository, []string) error
 
 var commands map[string]commandFunc
 
@@ -60,7 +60,7 @@ func main() {
 		errmsg(1, "unknown command: %q\n", cmd)
 	}
 
-	repo, err := storage.NewDirRepository(Opts.Repo)
+	repo, err := khepri.NewDirRepository(Opts.Repo)
 
 	if err != nil {
 		errmsg(1, "unable to create/open repo: %v", err)

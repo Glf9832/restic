@@ -1,4 +1,4 @@
-package hashing_test
+package khepri_test
 
 import (
 	"bytes"
@@ -6,8 +6,8 @@ import (
 	"crypto/sha1"
 	"encoding/hex"
 	"hash"
+	"khepri"
 
-	"restic/hashing"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
@@ -28,7 +28,7 @@ var _ = Describe("Hashing", func() {
 		Context("Static Strings", func() {
 			It("Should compute digest", func() {
 				for _, t := range static_tests {
-					r := hashing.NewReader(bytes.NewBuffer([]byte(t.text)), t.hash)
+					r := khepri.NewHashingReader(bytes.NewBuffer([]byte(t.text)), t.hash)
 
 					n, err := r.Read(make([]byte, len(t.text)+1))
 
@@ -58,7 +58,7 @@ var _ = Describe("Hashing", func() {
 			It("Should compute digest", func() {
 				for _, t := range static_tests {
 					var buf bytes.Buffer
-					w := hashing.NewWriter(&buf, t.hash)
+					w := khepri.NewHashingWriter(&buf, t.hash)
 
 					n, err := w.Write([]byte(t.text))
 

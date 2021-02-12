@@ -1,4 +1,4 @@
-module restic
+module khepri
 
 go 1.15
 
