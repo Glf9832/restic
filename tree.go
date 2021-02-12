@@ -48,7 +48,7 @@ func NodeFromFileInfo(fi os.FileInfo) Node {
 	if stat, ok := fi.Sys().(*syscall.Stat_t); ok {
 		node.User = stat.Uid
 		node.Group = stat.Gid
-		node.AccessTime = time.Unix(stat.Atim.Unix())
+		node.AccessTime = time.Unix(stat.Atimespec.Unix())
 	}
 
 	return node
