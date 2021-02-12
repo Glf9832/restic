@@ -12,7 +12,7 @@ import (
 func restore_file(repo *khepri.DirRepository, node khepri.Node, target string) error {
 	fmt.Printf("  restore file %q\n", target)
 
-	rd, err := repo.Get(khepri.TypeBlob, node.Content)
+	rd, err := repo.Get(khepri.TYPE_BLOB, node.Content)
 	if err != nil {
 		return err
 	}
@@ -48,7 +48,7 @@ func restore_file(repo *khepri.DirRepository, node khepri.Node, target string) e
 
 func restore_dir(repo *khepri.DirRepository, id khepri.ID, target string) error {
 	fmt.Printf("  restore dir %q\n", target)
-	rd, err := repo.Get(khepri.TypeRef, id)
+	rd, err := repo.Get(khepri.TYPE_REF, id)
 	if err != nil {
 		return err
 	}
@@ -110,7 +110,7 @@ func commandRestore(repo *khepri.DirRepository, args []string) error {
 
 	id, err := khepri.ParseID(args[0])
 	if err != nil {
-		errmsg(1, "invalid id %q: %v", args[0], err)
+		errx(1, "invalid id %q: %v", args[0], err)
 	}
 
 	target := args[1]
